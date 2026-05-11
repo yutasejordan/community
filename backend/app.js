@@ -5,7 +5,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://community-bice.vercel.app",
+  "https://community-omega-liard.vercel.app/",
 ];
 
 app.use(
@@ -19,7 +19,7 @@ app.use(
       }
     },
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());
