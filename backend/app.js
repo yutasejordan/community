@@ -5,7 +5,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://community-omega-liard.vercel.app/",
+  "https://community-omega-liard.vercel.app",
 ];
 
 app.use(
@@ -15,7 +15,8 @@ app.use(
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("CORS blocked for this origin: " + origin));
+        //community-bice.vercel.app
+        https: callback(new Error("CORS blocked for this origin: " + origin));
       }
     },
     credentials: true,

@@ -1,5 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../lib/prisma");
 
 exports.getAllCommunities = async (req, res) => {
   try {
@@ -86,8 +85,8 @@ exports.communityDetail = async (req, res) => {
     // Convert BigInt -> String supaya tidak error
     const safeResult = JSON.parse(
       JSON.stringify(result, (_, value) =>
-        typeof value === "bigint" ? value.toString() : value
-      )
+        typeof value === "bigint" ? value.toString() : value,
+      ),
     );
 
     res.status(200).json(safeResult);
@@ -336,7 +335,7 @@ exports.deleteMember = async (req, res) => {
   try {
     const memberId = parseInt(req.params.id);
 
-    const deleted = await db.communityMember.delete({
+    const deleted = await prisma.communityMember.delete({
       where: {
         id: memberId,
       },
@@ -381,7 +380,7 @@ exports.getHistoryLogin = async (req, res) => {
           role: user.role,
           lastLogin: g._max.loginAt,
         };
-      })
+      }),
     );
 
     res.status(200).json(history);
@@ -504,4 +503,3 @@ exports.deleteAppliedEvent = async (req, res) => {
     });
   }
 };
-

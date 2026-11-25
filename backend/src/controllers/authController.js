@@ -1,5 +1,5 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../lib/prisma");
+
 const bcrypt = require("bcrypt");
 
 exports.registermember = async (req, res) => {
@@ -135,7 +135,7 @@ exports.registermember = async (req, res) => {
 
     // Log successful registration for monitoring
     console.log(
-      `New member registered: ${newUser.email} at ${new Date().toISOString()}`
+      `New member registered: ${newUser.email} at ${new Date().toISOString()}`,
     );
 
     // Success response

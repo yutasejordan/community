@@ -1,12 +1,11 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../lib/prisma");
 
 exports.createPost = async (req, res) => {
   try {
-    const { title, imageUrl, communityId } = req.body;
+    const { title, description, imageUrl, communityId } = req.body;
 
     // Validasi input
-    if (!title) {
+    if (!title || !communityId) {
       return res
         .status(400)
         .json({ message: "Title dan communityId wajib diisi." });
@@ -15,7 +14,8 @@ exports.createPost = async (req, res) => {
     const newGallery = await prisma.gallery.create({
       data: {
         title,
-        imageUrl,
+        description: description || null,
+        imageUrl: imageUrl || null,
         communityId: parseInt(communityId),
       },
     });
